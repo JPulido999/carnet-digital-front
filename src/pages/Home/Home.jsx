@@ -19,9 +19,10 @@ export default function Home() {
 
     return (
         <div className="home-container">
-            <h1>Carnet Digital</h1>
-            <p>Accede a tu carnet estudiantil con tu correo institucional</p>
+            <img className="logo-unsch-principal" src="http://localhost:8080/control_ph/logounsch1.png" alt="" />
+            <h1>Carnet Digital UNSCH</h1>
             <button onClick={iniciarConGoogle}>Iniciar sesión con Google</button>
+            <p>Accede a tu carnet estudiantil con tu correo institucional</p>
         </div>
     );
 }

@@ -5,7 +5,7 @@
     align-items: center;
     height: 100vh;
     gap: 20px;
-    background: linear-gradient(to right, #1e3c72, #5c0000);
+    background: linear-gradient(to right, #004b85, #5c0000);
     color: #fff;
     text-align: center;
 }
@@ -23,4 +23,14 @@
 
 .home-container button:hover {
     background-color: #3f3f3f;
+}
+
+.logo-unsch-principal {
+    padding: 10px;
+    width: 300px;
+}
+
+p{
+    font-style: italic;
+    font-size: 12px;
 }

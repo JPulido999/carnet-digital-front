@@ -23,14 +23,21 @@ export default function App() {
                 <Route
                     path="/dashboard"
                     element={
-                        <RutaProtegida>
+                        <RutaProtegida roles={["ADMIN", "ESTUDIANTE", "VIGILANTE"]}>
                             <Dashboard />
                         </RutaProtegida>
                     }
                 />
 
                 {/* VERIFICACIÓN SIN LOGIN */}
-                <Route path="/verificacion/:dni" element={<VerificacionUsuario />} />
+                <Route
+                    path="/verificacion/:dni"
+                    element={
+                        <RutaProtegida roles={["VIGILANTE"]}>
+                            <VerificacionUsuario />
+                        </RutaProtegida>
+                    }
+                />
 
                 <Route path="/error" element={<ErrorPage />} />
                 <Route path="*" element={<ErrorPage />} />

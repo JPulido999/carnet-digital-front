@@ -14,7 +14,8 @@ export default function Home() {
     }, [token]);
 
     const iniciarConGoogle = () => {
-        window.location.href = "http://localhost:8080/oauth2/authorization/google?prompt=select_account";
+        window.location.href =
+            "http://localhost:8080/oauth2/authorization/google";
     };
 
     return (

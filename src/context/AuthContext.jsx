@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from "react";
+import { jwtDecode } from "jwt-decode";
 
 export const AuthContext = createContext();
 
@@ -14,17 +15,16 @@ export const AuthProvider = ({ children }) => {
             localStorage.setItem("token", tokenParam);
             setToken(tokenParam);
 
-            // Extraer email del token
-            const payload = JSON.parse(atob(tokenParam.split('.')[1]));
-            setUsuario({ correo: payload.sub });
+            const payload = jwtDecode(tokenParam);
+            setUsuario({ correo: payload.sub, rol: payload.rol });
 
             window.history.replaceState({}, document.title, "/");
         } else {
             const storedToken = localStorage.getItem("token");
             if (storedToken) {
                 setToken(storedToken);
-                const payload = JSON.parse(atob(storedToken.split('.')[1]));
-                setUsuario({ correo: payload.sub });
+                const payload = jwtDecode(storedToken);
+                setUsuario({ correo: payload.sub, rol: payload.rol });
             }
         }
     }, []);
@@ -32,14 +32,17 @@ export const AuthProvider = ({ children }) => {
     const login = (newToken) => {
         localStorage.setItem("token", newToken);
         setToken(newToken);
-        const payload = JSON.parse(atob(newToken.split('.')[1]));
-        setUsuario({ correo: payload.sub });
+
+        const payload = jwtDecode(newToken);
+        setUsuario({ correo: payload.sub, rol: payload.rol });
     };
 
     const logout = () => {
         localStorage.removeItem("token");
         setToken(null);
         setUsuario(null);
+
+        window.location.href = "/"; // ← tu pantalla inicial
     };
 
     return (

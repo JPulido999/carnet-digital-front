@@ -6,6 +6,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(null);
     const [usuario, setUsuario] = useState(null);
+    const [loading, setLoading] = useState(true); // 👈 NUEVO
 
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
@@ -27,6 +28,8 @@ export const AuthProvider = ({ children }) => {
                 setUsuario({ correo: payload.sub, rol: payload.rol });
             }
         }
+
+        setLoading(false); // 👈 MUY IMPORTANTE
     }, []);
 
     const login = (newToken) => {
@@ -41,12 +44,11 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem("token");
         setToken(null);
         setUsuario(null);
-
-        window.location.href = "/"; // ← tu pantalla inicial
+        window.location.href = "/";
     };
 
     return (
-        <AuthContext.Provider value={{ token, usuario, login, logout }}>
+        <AuthContext.Provider value={{ token, usuario, loading, login, logout }}>
             {children}
         </AuthContext.Provider>
     );

@@ -4,9 +4,14 @@ import { AuthContext } from "./context/AuthContext";
 
 import Home from "./pages/Home/Home";
 import Dashboard from "./pages/Dashboard/Dashboard";
+
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
-import VerificacionUsuario from "./pages/Verification/VerificacionUsuario.jsx";
 import RutaProtegida from "./components/RutaProtegida";
+
+import VerificacionUsuario from "./pages/Verification/VerificacionUsuario.jsx";
+import EscanearQR from "./pages/Verification/EscanearQR";
+import VerificacionManual from "./pages/Verification/VerificacionManual";
+
 
 export default function App() {
     const { token } = useContext(AuthContext);
@@ -31,13 +36,32 @@ export default function App() {
 
                 {/* VERIFICACIÓN SIN LOGIN */}
                 <Route
-                    path="/verificacion/:dni"
+                    path="/verificacion/:uuid"
                     element={
                         <RutaProtegida roles={["VIGILANTE"]}>
                             <VerificacionUsuario />
                         </RutaProtegida>
                     }
                 />
+
+                <Route
+                    path="/verificacion/scan"
+                    element={
+                        <RutaProtegida roles={["VIGILANTE"]}>
+                            <EscanearQR />
+                        </RutaProtegida>
+                    }
+                />
+
+                <Route
+                    path="/verificacion/manual"
+                    element={
+                        <RutaProtegida roles={["VIGILANTE"]}>
+                            <VerificacionManual />
+                        </RutaProtegida>
+                    }
+                />
+
 
                 <Route path="/error" element={<ErrorPage />} />
                 <Route path="*" element={<ErrorPage />} />

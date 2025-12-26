@@ -6,7 +6,7 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
 export default function Dashboard() {
-    const { logout, token } = useContext(AuthContext);
+    const { logout, token, usuario } = useContext(AuthContext);
     const [datosUsuario, setDatosUsuario] = useState(null);
     const [error, setError] = useState(false);
 
@@ -164,6 +164,27 @@ export default function Dashboard() {
 
                 </div>
             </div>
+
+                    {/* --- OPCIONES SOLO PARA VIGILANTE --- */}
+        {usuario?.rol === "VIGILANTE" && (
+            <div className="verificacion-panel">
+                <h3>Verificación de identidad</h3>
+
+                <div className="verificacion-actions">
+                    <button
+                        onClick={() => window.location.href = "/verificacion/scan"}
+                    >
+                        📷 Escanear QR
+                    </button>
+
+                    <button
+                        onClick={() => window.location.href = "/verificacion/manual"}
+                    >
+                        ✍ Verificación manual
+                    </button>
+                </div>
+            </div>
+        )}
         </div>
     );
     }

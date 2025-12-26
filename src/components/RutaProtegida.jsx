@@ -3,11 +3,17 @@ import { Navigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 export default function RutaProtegida({ children, roles }) {
-    const { token, usuario } = useContext(AuthContext);
+    const { token, usuario, loading } = useContext(AuthContext);
 
-    if (!token) return <Navigate to="/" replace />;
+    // ⏳ Esperar a que cargue el token
+    if (loading) {
+        return <p>Cargando sesión...</p>;
+    }
 
-    // Si la ruta requiere roles específicos
+    if (!token) {
+        return <Navigate to="/" replace />;
+    }
+
     if (roles && usuario) {
         if (!roles.includes(usuario.rol)) {
             return <Navigate to="/error" replace />;

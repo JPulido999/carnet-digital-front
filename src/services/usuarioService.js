@@ -1,4 +1,5 @@
 import axios from "axios";
+import api from "./api";
 
 const API_URL_USUARIOS = "http://localhost:8080/api/usuarios";
 const API_URL_CARNET = "http://localhost:8080/api/carnet";
@@ -12,11 +13,7 @@ export const obtenerUsuarioPorCorreo = async (correo, token) => {
 };
 
 // Agregas esta NUEVA función
-export const obtenerCarnetMe = async (token) => {
-    const res = await axios.get(`${API_URL_CARNET}/me`, {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    });
-    return res.data;
+export const obtenerCarnetMe = async () => {
+  const res = await api.get("/api/carnet/me");
+  return res.data;
 };

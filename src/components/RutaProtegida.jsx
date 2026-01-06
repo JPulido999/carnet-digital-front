@@ -14,10 +14,8 @@ export default function RutaProtegida({ children, roles }) {
         return <Navigate to="/" replace />;
     }
 
-    if (roles && usuario) {
-        if (!roles.includes(usuario.rol)) {
-            return <Navigate to="/error" replace />;
-        }
+    if (roles && usuario && !roles.includes(usuario.rol)) {
+    return <Navigate to="/error" replace />;
     }
 
     return children;

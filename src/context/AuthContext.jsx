@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
             setToken(tokenParam);
 
             const payload = jwtDecode(tokenParam);
-            setUsuario({ correo: payload.sub, rol: payload.rol });
+            setUsuario({ id: payload.sub, rol: payload.rol });
 
             window.history.replaceState({}, document.title, "/");
         } else {
@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }) => {
             if (storedToken) {
                 setToken(storedToken);
                 const payload = jwtDecode(storedToken);
-                setUsuario({ correo: payload.sub, rol: payload.rol });
+                setUsuario({ id: payload.sub, rol: payload.rol });
             }
         }
 
@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
         setToken(newToken);
 
         const payload = jwtDecode(newToken);
-        setUsuario({ correo: payload.sub, rol: payload.rol });
+        setUsuario({ id: payload.sub, rol: payload.rol });
     };
 
     const logout = () => {

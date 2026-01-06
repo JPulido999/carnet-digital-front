@@ -12,7 +12,7 @@ export default function Dashboard() {
 
     useEffect(() => {
         if (token) {
-            obtenerCarnetMe(token)
+            obtenerCarnetMe()
                 .then(res => setDatosUsuario(res))
                 .catch(err => {
                     console.error(err);
@@ -95,7 +95,8 @@ export default function Dashboard() {
             const y = (842 - carnetHeight) / 2;
 
             pdf.addImage(imgData, "PNG", x, y, carnetWidth, carnetHeight);
-            pdf.save(`${datosUsuario.codigoEstudiante}_carnet.pdf`);
+            const nombreArchivo = datosUsuario.codigoEstudiante || datosUsuario.dni;
+            pdf.save(`${nombreArchivo}_carnet.pdf`);
         });
     };
 
@@ -165,8 +166,8 @@ export default function Dashboard() {
                 </div>
             </div>
 
-                    {/* --- OPCIONES SOLO PARA VIGILANTE --- */}
-        {usuario?.rol === "VIGILANTE" && (
+        {/* --- OPCIONES SOLO PARA VIGILANTE --- */}
+        {(usuario?.rol === "VIGILANTE" || usuario?.rol === "ADMIN_SISTEMA") && (
             <div className="verificacion-panel">
                 <h3>Verificación de identidad</h3>
 
@@ -184,6 +185,21 @@ export default function Dashboard() {
                     </button>
                 </div>
             </div>
+        )}
+
+        {/* --- OPCIÓN SOLO ADMIN SISTEMA --- */}
+        {usuario?.rol === "ADMIN_SISTEMA" && (
+        <div className="verificacion-panel">
+            <h3>Administración del sistema</h3>
+
+            <div className="verificacion-actions">
+            <button
+                onClick={() => window.location.href = "/admin"}
+            >
+                📊 Ver Eventos de Acceso
+            </button>
+            </div>
+        </div>
         )}
         </div>
     );

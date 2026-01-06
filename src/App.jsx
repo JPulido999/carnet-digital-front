@@ -4,6 +4,7 @@ import { AuthContext } from "./context/AuthContext";
 
 import Home from "./pages/Home/Home";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import AdminDashboard from "./pages/Admin/AdminDashboard";
 
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
 import RutaProtegida from "./components/RutaProtegida";
@@ -28,7 +29,7 @@ export default function App() {
                 <Route
                     path="/dashboard"
                     element={
-                        <RutaProtegida roles={["ADMIN", "ESTUDIANTE", "VIGILANTE"]}>
+                        <RutaProtegida roles={["ESTUDIANTE", "VIGILANTE", "ADMIN_SISTEMA"]}>
                             <Dashboard />
                         </RutaProtegida>
                     }
@@ -38,7 +39,7 @@ export default function App() {
                 <Route
                     path="/verificacion/:uuid"
                     element={
-                        <RutaProtegida roles={["VIGILANTE"]}>
+                        <RutaProtegida roles={["VIGILANTE", "ADMIN_SISTEMA"]}>
                             <VerificacionUsuario />
                         </RutaProtegida>
                     }
@@ -47,7 +48,7 @@ export default function App() {
                 <Route
                     path="/verificacion/scan"
                     element={
-                        <RutaProtegida roles={["VIGILANTE"]}>
+                        <RutaProtegida roles={["VIGILANTE", "ADMIN_SISTEMA"]}>
                             <EscanearQR />
                         </RutaProtegida>
                     }
@@ -56,8 +57,17 @@ export default function App() {
                 <Route
                     path="/verificacion/manual"
                     element={
-                        <RutaProtegida roles={["VIGILANTE"]}>
+                        <RutaProtegida roles={["VIGILANTE", "ADMIN_SISTEMA"]}>
                             <VerificacionManual />
+                        </RutaProtegida>
+                    }
+                />
+
+                <Route
+                    path="/admin"
+                    element={
+                        <RutaProtegida roles={["ADMIN_SISTEMA"]}>
+                        <AdminDashboard />
                         </RutaProtegida>
                     }
                 />

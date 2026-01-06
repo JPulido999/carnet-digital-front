@@ -15,8 +15,17 @@ export default function VerificacionManual() {
         setError(null);
         setResultado(null);
 
+        if (!dni.trim() && !codigo.trim()) {
+            setError("Ingrese DNI o código");
+            return;
+        }
+
         try {
-            const data = await obtenerVerificacionManual({ dni, codigo }, token);
+            const data = await obtenerVerificacionManual({
+                dni: dni.trim(),
+                codigo: codigo.trim()
+            }, token);
+
             setResultado(data);
         } catch {
             setError("No se encontró al usuario");
